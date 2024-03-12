@@ -80,5 +80,13 @@ char SPI_charTranceive(char ARG_charData)
 void __vector_12(void) __attribute__((signal)); /*TIMER0 OUTPUT COMPARE MATCH*/
 void __vector_12(void)
 {
+	if(SPI_pvoidfUserFunction!=NULL_POINTER)
+	{
 	(*SPI_pvoidfUserFunction)();
+
+	}
+	else
+	{
+		/*report an error*/
+	}
 }
