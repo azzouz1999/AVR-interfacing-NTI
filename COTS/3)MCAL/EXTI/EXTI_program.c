@@ -50,7 +50,7 @@ void EXTI_Enable(EXTI_source copy_enumInterruptSource, EXTI_senseControl copy_en
 					CLEAR_BIT(MCUCR_REG,ISC01);
 					break;
 				}
-				SET_BIT(GICR_REG,INT0);  //ENABLE EXTERNAL INTERRUPT 1
+				SET_BIT(GICR_REG,INT0);  //ENABLE EXTERNAL INTERRUPT 0
 
 			}
 		break;
@@ -94,9 +94,24 @@ void EXTI_Enable(EXTI_source copy_enumInterruptSource, EXTI_senseControl copy_en
 
 		case EXTI_INT2:
 		{
+				switch(copy_enumInterruptMode)
+			{
+				case EXTI_FALLING_EDGE:
+				{
+				CLEAR_BIT(MCUCSR_REG,ISC2);
+				break;
+				}
+				case EXTI_RISING_EDGE:
+				{
+				SET_BIT(MCUCSR_REG,ISC2);
+				break;
+				}
+				default: /*report an error*/break;
+			}
+			SET_BIT(GICR_REG,INT2);  //ENABLE EXTERNAL INTERRUPT 2
 			break;
 		}
-		
+		default: /*report an error*/break;
 
 	}
 }
